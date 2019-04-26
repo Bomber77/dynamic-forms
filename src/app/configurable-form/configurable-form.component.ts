@@ -14,6 +14,6 @@ export class ConfigurableFormComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.form = new FormGroup();
+    // this.form = new FormGroup();
   }
 }
