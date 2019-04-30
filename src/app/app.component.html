@@ -1,4 +1,4 @@
-<div nz-row class="root-wrapper">
+<!-- <div nz-row class="root-wrapper">
   <div nz-col nzSpan="6">
     <div nz-row class="header">
       <div nz-col nzSpan="12">
@@ -19,4 +19,19 @@
     <configurable-form></configurable-form>
   </div>
 </div>
-{{ jsonOption$ | async }}
+{{ jsonOption$ | async }} -->
+<div class="root-wrapper">
+  <nz-layout>
+    <nz-sider style="{backgroundColor: 'white'}">
+      <nz-card>
+        <div>Text Field</div>
+      </nz-card>
+      <nz-card>
+        <div>Select Field</div>
+      </nz-card>
+    </nz-sider>
+    <nz-content class="mps-content">
+      <form-designer></form-designer>
+    </nz-content>
+  </nz-layout>
+</div>
