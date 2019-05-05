@@ -9,6 +9,7 @@ import { FormGroup } from "@angular/forms";
 })
 export class FormDesignerComponent implements OnInit {
   form: FormGroup;
+  // formGroups: 
   constructor() {}
 
   ngOnInit() {
