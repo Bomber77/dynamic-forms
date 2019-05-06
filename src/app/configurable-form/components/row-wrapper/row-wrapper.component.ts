@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./row-wrapper.component.scss']
 })
 export class RowWrapperComponent implements OnInit {
-
+  selected = false;
   constructor() { }
 
   ngOnInit() {
   }
 
+  troggle() {
+    this.selected = !this.selected;
+  }
 }

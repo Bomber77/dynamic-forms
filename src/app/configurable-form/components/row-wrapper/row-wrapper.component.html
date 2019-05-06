@@ -1,3 +1,3 @@
-<p>
-  row-wrapper works!
-</p>
+<div nz-row class="row-wrapper" [ngClass]="{'selected': selected}" (click)="troggle()">
+  <div nz-col nzSpan="2" cdkDrag>drag me</div>
+</div>

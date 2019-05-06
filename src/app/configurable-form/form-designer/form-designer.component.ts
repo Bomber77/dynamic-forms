@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup } from "@angular/forms";
+import { RowWrapperModel } from '../components/row-wrapper/row-wrapper.model';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -9,10 +10,11 @@ import { FormGroup } from "@angular/forms";
 })
 export class FormDesignerComponent implements OnInit {
   form: FormGroup;
-  // formGroups: 
+  rowWrappers: RowWrapperModel[]; 
   constructor() {}
 
   ngOnInit() {
+    this.rowWrappers = [{id: 1, name: "1"}];
     // this.form = new FormGroup()
   }
 }

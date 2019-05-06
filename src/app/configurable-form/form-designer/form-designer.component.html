@@ -1,10 +1,10 @@
 <nz-layout>
   <nz-header></nz-header>
   <nz-content>
-    <form [formGroup]="form">
-      <div nz-row *ngFor="let formgroup of formGroups">
+    <!-- <form [formGroup]="form"> -->
+      <row-wrapper *ngFor="let rowWrapper of rowWrappers">
         <ng-template></ng-template>
-      </div>
-    </form>
+      </row-wrapper>
+    <!-- </form> -->
   </nz-content>
 </nz-layout>

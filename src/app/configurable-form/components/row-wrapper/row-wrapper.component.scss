@@ -1,0 +1,7 @@
+.row-wrapper {
+    height: 40px;
+
+    &:hover, &.selected {
+        border: 2px dashed blue;
+    }
+}
