@@ -23,12 +23,23 @@
 <div class="root-wrapper">
   <nz-layout>
     <nz-sider style="{backgroundColor: 'white'}">
-      <nz-card>
-        <div>Text Field</div>
-      </nz-card>
-      <nz-card>
+      <!-- <div
+        id="drop1"
+        draggable="true"
+        (drop)="drop($event)"
+        (dragover)="allowDrop($event)"
+      >
+        <span id="drag1" draggable="true" (dragstart)="drag($event)">
+          Text Field
+        </span>
         <div>Select Field</div>
-      </nz-card>
+      </div>
+      <div
+        class="drop-wrapper"
+        id="drop1"
+        (drop)="drop($event)"
+        (dragover)="allowDrop($event)"
+      ></div> -->
     </nz-sider>
     <nz-content class="mps-content">
       <form-designer></form-designer>

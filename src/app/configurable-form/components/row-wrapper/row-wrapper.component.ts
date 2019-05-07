@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'row-wrapper',
-  templateUrl: './row-wrapper.component.html',
-  styleUrls: ['./row-wrapper.component.scss']
+  // tslint:disable-next-line:component-selector
+  selector: "row-wrapper",
+  templateUrl: "./row-wrapper.component.html",
+  styleUrls: ["./row-wrapper.component.scss"]
 })
 export class RowWrapperComponent implements OnInit {
   selected = false;
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   troggle() {
     this.selected = !this.selected;

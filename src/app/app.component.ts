@@ -20,8 +20,24 @@ export class AppComponent {
   jsonOption$: Observable<any>;
   editorValue$ = new Subject();
 
-  onChange = value => {
+  onChange(value) {
     this.editorValue$.next(value);
+  }
+
+  allowDrop(e) {
+    e.preventDefault();
+  }
+
+  drop(e) {
+    e.preventDefault();
+    const data = e.dataTransfer.getData("text");
+    // e.target.appendChild(document.getElementById(data));
+    console.log("drop: ", data);
+  }
+
+  drag(e) {
+    e.dataTransfer.setData("text", e.target.id);
+    // console.log("drag: ", e);
   }
 
   constructor() {
