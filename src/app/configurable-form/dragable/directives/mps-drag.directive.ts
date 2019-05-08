@@ -7,7 +7,7 @@ import { DropDragBase } from "./drop-drag.base";
 })
 export class MpsDragDirective extends DropDragBase {
   @Input("dragEnabled")
-  set draggable(val: boolean) {
+  set setDragEnable(val: boolean) {
     this.dragEnabled = val || true;
   }
   constructor(elRef: ElementRef) {
