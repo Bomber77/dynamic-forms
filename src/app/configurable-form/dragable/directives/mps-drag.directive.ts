@@ -1,12 +1,17 @@
-import { Directive, ElementRef } from "@angular/core";
-import { DropableBase } from "./dropable.base";
+import { Directive, ElementRef, Input } from "@angular/core";
+import { DropDragBase } from "./drop-drag.base";
 
 @Directive({
   // tslint:disable-next-line:directive-selector
   selector: "[mpsDrag]"
 })
-export class MpsDragDirective extends DropableBase {
+export class MpsDragDirective extends DropDragBase {
+  @Input("dragEnabled")
+  set draggable(val: boolean) {
+    this.dragEnabled = val || true;
+  }
   constructor(elRef: ElementRef) {
     super(elRef);
+    this.dragEnabled = true;
   }
 }
