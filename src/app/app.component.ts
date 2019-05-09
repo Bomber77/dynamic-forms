@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { Observable, Subject, of, NEVER, throwError, empty } from "rxjs";
 import { switchMap, tap, debounceTime, catchError, map } from "rxjs/operators";
+import { DragConfig } from "./configurable-form/dragable/directives/drag.config";
 
 const str2Json = str => {
   try {
@@ -15,41 +16,6 @@ const str2Json = str => {
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
-  title = "dynamic-forms";
-  jsonObj = "";
-  jsonOption$: Observable<any>;
-  editorValue$ = new Subject();
-
-  onChange(value) {
-    this.editorValue$.next(value);
-  }
-
-  allowDrop(e) {
-    e.preventDefault();
-  }
-
-  drop(e) {
-    e.preventDefault();
-    const data = e.dataTransfer.getData("text");
-    // e.target.appendChild(document.getElementById(data));
-    console.log("drop: ", data);
-  }
-
-  drag(e) {
-    e.dataTransfer.setData("text", e.target.id);
-    // console.log("drag: ", e);
-  }
-
-  constructor() {
-    this.jsonOption$ = this.editorValue$.pipe(
-      debounceTime(500),
-      switchMap(val => of(str2Json(val))),
-      catchError(val => {
-        if (val["error"]) {
-          return empty;
-        }
-      }),
-      tap(console.log)
-    );
-  }
+  dragConfig: DragConfig;
+  constructor() {}
 }

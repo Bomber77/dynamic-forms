@@ -23,8 +23,8 @@
 <div class="root-wrapper">
   <nz-layout>
     <nz-sider>
-      <div mpsDrop>
-        <div mpsDrag>text</div>
+      <div>
+        <div mpsDrag [dragConfig]="">text</div>
       </div>
       <!-- <div
         id="drop1"
@@ -45,7 +45,7 @@
       ></div> -->
     </nz-sider>
     <nz-content class="mps-content">
-      <div class="default-drog-area" mpsDrog [dropEnabled]="true"></div>
+      <!-- <div class="default-drog-area" mpsDrop dropEnabled="true"></div> -->
       <form-designer></form-designer>
     </nz-content>
   </nz-layout>

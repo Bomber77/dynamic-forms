@@ -7,6 +7,8 @@ import { NgZorroAntdModule } from "ng-zorro-antd";
 import { RowWrapperComponent } from "./components/row-wrapper/row-wrapper.component";
 import { MpsDropDirective } from "./dragable/directives/mps-drop.directive";
 import { MpsDragDirective } from "./dragable/directives/mps-drag.directive";
+import { MpsDropRootComponent } from "./dragable/components/mps-drop-root.component";
+import { MpsDragFakeDirective } from "./dragable/directives/mps-drag-fake.directive";
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { MpsDragDirective } from "./dragable/directives/mps-drag.directive";
     FormDesignerComponent,
     RowWrapperComponent,
     MpsDropDirective,
-    MpsDragDirective
+    MpsDragDirective,
+    MpsDragFakeDirective,
+    MpsDropRootComponent
   ],
   imports: [
     CommonModule,
