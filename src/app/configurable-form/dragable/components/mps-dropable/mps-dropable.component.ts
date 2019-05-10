@@ -8,7 +8,7 @@ import {
 } from "@angular/core";
 import { MpsDragFakeDirective } from "../../directives/mps-drag-fake.directive";
 import { MpsComponentsFactoryService } from "../../../services/mps-components-factory/mps-components-factory.service";
-import { DragConfig } from "../../directives/drag.config";
+import { DragConfig, DragItemType } from "../../directives/drag.config";
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -28,9 +28,17 @@ export class MpsDropableComponent implements AfterViewInit {
     private mpsComponentsFactoryService: MpsComponentsFactoryService
   ) {}
 
-  onDragEnterHandle = e => {
+  onDragEnterHandle = (e: DragConfig) => {
     this.dragItemEnter = true;
-    this.generateFakeComponent(e);
+    switch (e.dragType) {
+      case DragItemType.CreateBy:
+        this.generateFakeComponent(e);
+        break;
+      case DragItemType.Clone:
+        break;
+      case DragItemType.Move:
+        break;
+    }
   }
 
   onDragMovingHandle = e => {};

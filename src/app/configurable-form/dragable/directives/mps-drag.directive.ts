@@ -40,6 +40,7 @@ export class MpsDragDirective extends DropDragBase implements Dragable {
   @Output() onDragStart: EventEmitter<any> = new EventEmitter<any>();
 
   private onDragStart$: Observable<any>;
+  private onMouseOver$: Observable<any>;
   private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(elRef: ElementRef, shareData: MpsDrogDragService) {
@@ -50,17 +51,17 @@ export class MpsDragDirective extends DropDragBase implements Dragable {
   }
 
   private _addListenser = () => {
-    this.element.ondragstart = (e: DragEvent) => {
-      this.shareData.curElementType = this._dragConfig;
-    };
-    // this.onDragStart$ = fromEvent(this.element, "dragstart");
+    this.onDragStart$ = fromEvent(this.element, "dragstart");
 
-    // this.subscriptions.push(
-    //   this.onDragStart$.subscribe(e => {
-    //     // preparing data.
-    //     e.dataTransfer.setData("text", "aaa");
-    //   })
-    // );
+    this.onMouseOver$ = fromEvent(this.element, "mouseover");
+
+    this.subscriptions.push(
+      this.onDragStart$.subscribe(e => {
+        // preparing data.
+        this.shareData.curElementType = this._dragConfig;
+      })
+    );
+    this.subscriptions.push(this.onMouseOver$.subscribe(e => {}));
   }
 
   private _removeListenser = () => {
