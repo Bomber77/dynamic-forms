@@ -10,17 +10,20 @@ import {
 import { ElementRef } from "@angular/core";
 import { Subject } from "rxjs";
 import { DropDragBase as IDropDragBase } from "./drop-drag.base.interface";
+import { MpsDrogDragService } from "../services/mps-drog-drag.service";
 
 @Injectable()
 export abstract class DropDragBase implements IDropDragBase, OnInit, OnDestroy {
   addListenser: () => void;
   removeListenser: () => void;
   element: HTMLElement;
+  shareData: MpsDrogDragService;
 
   _enable: boolean;
 
-  constructor(elRef: ElementRef) {
+  constructor(elRef: ElementRef, shareData: MpsDrogDragService) {
     this.element = elRef.nativeElement;
+    this.shareData = shareData;
     this._enable = false;
   }
 

@@ -11,6 +11,8 @@ import { MpsDropRootComponent } from "./dragable/components/mps-drop-root.compon
 import { MpsDragFakeDirective } from "./dragable/directives/mps-drag-fake.directive";
 import { MpsDropableComponent } from "./dragable/components/mps-dropable/mps-dropable.component";
 import { MpsTextInputComponent } from "./components/mps-text-input/mps-text-input.component";
+import { MpsComponentsFactoryService } from "./services/mps-components-factory/mps-components-factory.service";
+import { MpsDrogDragService } from "./dragable/services/mps-drog-drag.service";
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { MpsTextInputComponent } from "./components/mps-text-input/mps-text-inpu
     ReactiveFormsModule,
     NgZorroAntdModule
   ],
+  providers: [MpsComponentsFactoryService, MpsDrogDragService],
+  entryComponents: [MpsTextInputComponent],
   exports: [
     ConfigurableFormComponent,
     FormDesignerComponent,

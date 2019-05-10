@@ -2,29 +2,15 @@ import {
   Directive,
   ElementRef,
   Input,
-  OnInit,
   Output,
-  EventEmitter,
-  ViewChild,
-  AfterViewInit
+  EventEmitter
 } from "@angular/core";
 import { DropDragBase } from "./drop-drag.base";
 import { MpsDragFakeDirective } from "./mps-drag-fake.directive";
-import {
-  Observable,
-  fromEvent,
-  Subject,
-  fromEventPattern,
-  Subscription
-} from "rxjs";
-import {
-  map,
-  switchMap,
-  debounce,
-  filter,
-  bufferCount,
-  tap
-} from "rxjs/operators";
+import { Observable, fromEvent, Subject, Subscription } from "rxjs";
+import { map, filter, bufferCount, tap } from "rxjs/operators";
+import { DragConfig } from "./drag.config";
+import { MpsDrogDragService } from "../services/mps-drog-drag.service";
 
 interface Pointer {
   x: number;
@@ -76,8 +62,10 @@ export class MpsDropDirective extends DropDragBase {
   private enable$ = new Subject<boolean>();
   private subscriptions: Subscription[] = new Array<Subscription>();
 
-  constructor(elRef: ElementRef) {
-    super(elRef);
+  private srcElement: Element;
+
+  constructor(elRef: ElementRef, shareData: MpsDrogDragService) {
+    super(elRef, shareData);
     this.addListenser = this._addListenser;
     this.removeListenser = this._removeListenser;
   }
@@ -88,7 +76,8 @@ export class MpsDropDirective extends DropDragBase {
     // generate subscription.
     this.subscriptions.push(
       this.onDragEnter$.subscribe(e => {
-        this.onDragEnter.emit(e);
+        const dragConfig = this.shareData.curElementType;
+        this.onDragEnter.emit(dragConfig);
       })
     );
     this.subscriptions.push(
@@ -102,14 +91,17 @@ export class MpsDropDirective extends DropDragBase {
         this.onDragLeave.emit(e);
       })
     );
-  }
+  };
 
   private _addListenser = () => {
     this.onDragEnter$ = fromEvent<DragEvent>(this.element, "dragenter").pipe(
-      map(eventPreventDefault),
-      tap(e => {
-        console.log("element rect:", this.element.getClientRects());
-      })
+      map(eventPreventDefault)
+      // filter(e => {
+      //   return positionInRange((this.element as any).getBoundingClientRect(), {
+      //     x: e.pageX,
+      //     y: e.pageY
+      //   });
+      // })
     );
     this.onDragOver$ = fromEvent<DragEvent>(this.element, "dragover").pipe(
       map(eventPreventDefault),
@@ -123,12 +115,20 @@ export class MpsDropDirective extends DropDragBase {
     this.onDrop$ = fromEvent<DragEvent>(this.element, "drop").pipe(
       map(eventPreventDefault)
     );
-    this.onDragLeave$ = fromEvent<DragEvent>(this.element, "dragleave");
+    this.onDragLeave$ = fromEvent<DragEvent>(this.element, "dragleave").pipe(
+      tap(console.log),
+      filter(e => {
+        return !positionInRange((this.element as any).getBoundingClientRect(), {
+          x: e.pageX,
+          y: e.pageY
+        });
+      })
+    );
 
     this.buildStream();
-  }
+  };
 
   private _removeListenser = () => {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  }
+  };
 }

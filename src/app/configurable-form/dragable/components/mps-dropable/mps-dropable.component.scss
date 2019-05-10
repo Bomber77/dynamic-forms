@@ -1,4 +1,6 @@
 .mps-drop-component {
+  height: 400px;
+  padding: 16px;
   text-align: center;
   &.drag-enter {
     outline: 2px dashed #22222290;
@@ -6,5 +8,6 @@
 }
 
 .drop-insert-tip {
-  padding: 24px;
+  height: 40px;
+  background-color: red;
 }

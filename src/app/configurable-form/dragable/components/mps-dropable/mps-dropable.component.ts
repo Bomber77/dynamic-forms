@@ -1,5 +1,14 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+  ComponentFactoryResolver,
+  ViewContainerRef
+} from "@angular/core";
 import { MpsDragFakeDirective } from "../../directives/mps-drag-fake.directive";
+import { MpsComponentsFactoryService } from "../../../services/mps-components-factory/mps-components-factory.service";
+import { DragConfig } from "../../directives/drag.config";
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -10,18 +19,18 @@ import { MpsDragFakeDirective } from "../../directives/mps-drag-fake.directive";
 export class MpsDropableComponent implements AfterViewInit {
   @ViewChild(MpsDragFakeDirective) mpsDragFake: MpsDragFakeDirective;
 
+  viewContainerRef: ViewContainerRef;
+
   dragItemEnter = false;
 
-  ngAfterViewInit(): void {
-    console.log(
-      "dragFake.viewContainerRef:",
-      this.mpsDragFake.viewContainerRef
-    );
-  }
-  constructor() {}
+  constructor(
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private mpsComponentsFactoryService: MpsComponentsFactoryService
+  ) {}
 
   onDragEnterHandle = e => {
     this.dragItemEnter = true;
+    this.generateFakeComponent(e);
   }
 
   onDragMovingHandle = e => {};
@@ -33,5 +42,31 @@ export class MpsDropableComponent implements AfterViewInit {
 
   onDragLeaveHandle = e => {
     this.dragItemEnter = false;
+    this.clearViewContainerRef();
+  }
+
+  clearViewContainerRef = () => {
+    this.viewContainerRef.clear();
+  }
+
+  generateFakeComponent = (config: DragConfig) => {
+    if (config) {
+      // tslint:disable-next-line:max-line-length
+      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
+        this.mpsComponentsFactoryService.getComponentByName(
+          config.componentType
+        ).component
+      );
+
+      this.clearViewContainerRef();
+
+      const componentRef = this.viewContainerRef.createComponent(
+        componentFactory
+      );
+    }
+  }
+
+  ngAfterViewInit(): void {
+    this.viewContainerRef = this.mpsDragFake.viewContainerRef;
   }
 }

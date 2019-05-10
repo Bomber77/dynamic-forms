@@ -10,9 +10,10 @@ import { MpsTextInputComponent } from "../../components/mps-text-input/mps-text-
 export class MpsComponentsFactoryService {
   FDComponents: FDItem[];
 
-  getComponentByName: (name: string) => FDItem = (name: string) => {
-    return this.FDComponents.find(item => item.inputType.toString() === name);
+  getComponentByName: (name: InputType) => FDItem = (name: InputType) => {
+    return this.FDComponents.find(item => item.inputType === name);
   }
+
   constructor() {
     this.FDComponents = [
       new FDItem(MpsTextInputComponent, InputType.TextControl, {})

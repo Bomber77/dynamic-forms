@@ -8,6 +8,8 @@ import {
 import { DropDragBase } from "./drop-drag.base";
 import { Dragable } from "./drag.interface";
 import { DragConfig } from "./drag.config";
+import { Observable, fromEvent, Subscription } from "rxjs";
+import { MpsDrogDragService } from "../services/mps-drog-drag.service";
 
 @Directive({
   // tslint:disable-next-line:directive-selector
@@ -37,8 +39,11 @@ export class MpsDragDirective extends DropDragBase implements Dragable {
   // tslint:disable-next-line:no-output-on-prefix
   @Output() onDragStart: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(elRef: ElementRef) {
-    super(elRef);
+  private onDragStart$: Observable<any>;
+  private subscriptions: Subscription[] = new Array<Subscription>();
+
+  constructor(elRef: ElementRef, shareData: MpsDrogDragService) {
+    super(elRef, shareData);
     this.enable = true;
     this.addListenser = this._addListenser;
     this.removeListenser = this._removeListenser;
@@ -46,11 +51,19 @@ export class MpsDragDirective extends DropDragBase implements Dragable {
 
   private _addListenser = () => {
     this.element.ondragstart = (e: DragEvent) => {
-      // preparing data.
+      this.shareData.curElementType = this._dragConfig;
     };
+    // this.onDragStart$ = fromEvent(this.element, "dragstart");
+
+    // this.subscriptions.push(
+    //   this.onDragStart$.subscribe(e => {
+    //     // preparing data.
+    //     e.dataTransfer.setData("text", "aaa");
+    //   })
+    // );
   }
 
   private _removeListenser = () => {
-    this.element.ondragstart = undefined;
+    this.subscriptions.forEach(item => item.unsubscribe());
   }
 }

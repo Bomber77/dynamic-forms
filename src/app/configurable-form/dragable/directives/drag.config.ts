@@ -1,4 +1,8 @@
-import { FDBaseComponent } from "../../form-designer/fd-base/fd-base";
+import {
+  FDBaseComponent,
+  FDItem,
+  InputType
+} from "../../form-designer/fd-base/fd-base";
 
 export enum DragItemType {
   Clone,
@@ -6,6 +10,6 @@ export enum DragItemType {
   Move
 }
 export interface DragConfig {
-  type: DragItemType;
-  createComponent?: FDBaseComponent;
+  dragType: DragItemType;
+  componentType: InputType;
 }
