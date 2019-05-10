@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RowWrapperComponent } from './row-wrapper.component';
+import { MpsTextInputComponent } from './mps-text-input.component';
 
-describe('RowWrapperComponent', () => {
-  let component: RowWrapperComponent;
-  let fixture: ComponentFixture<RowWrapperComponent>;
+describe('MpsTextInputComponent', () => {
+  let component: MpsTextInputComponent;
+  let fixture: ComponentFixture<MpsTextInputComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RowWrapperComponent ]
+      declarations: [ MpsTextInputComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RowWrapperComponent);
+    fixture = TestBed.createComponent(MpsTextInputComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

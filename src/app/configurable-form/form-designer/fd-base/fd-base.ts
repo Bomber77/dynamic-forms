@@ -1,17 +1,20 @@
 import { Type } from "@angular/core";
 
 export enum InputType {
-  Text,
-  DropDown
+  TextControl = "TextControl",
+  DropDownControl = "DropDownControl"
 }
 
 export interface FDBaseComponent {
   title: string;
-  inputType: InputType;
   order: number;
   required: boolean;
 }
 
 export class FDItem {
-  constructor(public component: Type<FDBaseComponent>, public data: any) {}
+  constructor(
+    public component: Type<any>,
+    public inputType: InputType,
+    public data: any
+  ) {}
 }

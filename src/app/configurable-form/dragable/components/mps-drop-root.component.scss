@@ -1,5 +1,13 @@
 .mps-drop-root {
-  width: 100%;
   background-color: #e2e2e2;
-  min-height: 80px;
+  margin: 8px;
+}
+
+.drop-insert-tip {
+  width: 100%;
+  text-align: center;
+  font-size: 1.5em;
+  // font-weight: bold;
+  opacity: 0.67;
+  padding: 24px;
 }

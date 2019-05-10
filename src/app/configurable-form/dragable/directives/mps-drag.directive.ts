@@ -46,7 +46,7 @@ export class MpsDragDirective extends DropDragBase implements Dragable {
 
   private _addListenser = () => {
     this.element.ondragstart = (e: DragEvent) => {
-      console.log("drag start:", e);
+      // preparing data.
     };
   }
 

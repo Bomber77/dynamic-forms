@@ -7,14 +7,6 @@ import { MpsDragFakeDirective } from "../directives/mps-drag-fake.directive";
   templateUrl: "./mps-drop-root.component.html",
   styleUrls: ["./mps-drop-root.component.scss"]
 })
-export class MpsDropRootComponent implements AfterViewInit {
-  @ViewChild(MpsDragFakeDirective) mpsDragFake: MpsDragFakeDirective;
-
-  ngAfterViewInit(): void {
-    console.log(
-      "dragFake.viewContainerRef:",
-      this.mpsDragFake.viewContainerRef
-    );
-  }
+export class MpsDropRootComponent {
   constructor() {}
 }

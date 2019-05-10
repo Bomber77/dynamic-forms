@@ -1,0 +1,13 @@
+<div
+  class="mps-drop-component"
+  [ngClass]="{ 'drag-enter': dragItemEnter }"
+  mpsDrop
+  enable="true"
+  (onDragEnter)="onDragEnterHandle($event)"
+  (onDragMoving)="onDragMovingHandle($event)"
+  (onDragDone)="onDragDoneHandle($event)"
+  (onDragLeave)="onDragLeaveHandle($event)"
+>
+  <ng-template mpsDragFake></ng-template>
+  <div class="drop-insert-tip"></div>
+</div>

@@ -1,0 +1,10 @@
+.mps-drop-component {
+  text-align: center;
+  &.drag-enter {
+    outline: 2px dashed #22222290;
+  }
+}
+
+.drop-insert-tip {
+  padding: 24px;
+}
