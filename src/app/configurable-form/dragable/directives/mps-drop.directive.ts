@@ -45,6 +45,9 @@ export class MpsDropDirective extends DropDragBase {
     return this._enable;
   }
 
+  private isFirstEnter = true;
+  private isEntered = false;
+
   // tslint:disable-next-line:no-output-on-prefix
   @Output()
   onDragEnter: EventEmitter<any> = new EventEmitter<any>();
@@ -91,17 +94,23 @@ export class MpsDropDirective extends DropDragBase {
         this.onDragLeave.emit(e);
       })
     );
-  };
+  }
 
   private _addListenser = () => {
     this.onDragEnter$ = fromEvent<DragEvent>(this.element, "dragenter").pipe(
-      map(eventPreventDefault)
-      // filter(e => {
-      //   return positionInRange((this.element as any).getBoundingClientRect(), {
-      //     x: e.pageX,
-      //     y: e.pageY
-      //   });
-      // })
+      map(eventPreventDefault),
+      filter(e => {
+        return (
+          positionInRange((this.element as any).getBoundingClientRect(), {
+            x: e.pageX,
+            y: e.pageY
+          }) && this.isFirstEnter
+        );
+      }),
+      tap(() => {
+        this.isFirstEnter = false;
+        this.isEntered = true;
+      })
     );
     this.onDragOver$ = fromEvent<DragEvent>(this.element, "dragover").pipe(
       map(eventPreventDefault),
@@ -113,22 +122,37 @@ export class MpsDropDirective extends DropDragBase {
       })
     );
     this.onDrop$ = fromEvent<DragEvent>(this.element, "drop").pipe(
-      map(eventPreventDefault)
+      map(eventPreventDefault),
+      filter(e => {
+        return (
+          positionInRange((this.element as any).getBoundingClientRect(), {
+            x: e.pageX,
+            y: e.pageY
+          }) && this.isEntered
+        );
+      }),
+      tap(() => {
+        this.isFirstEnter = true;
+        this.isEntered = false;
+      })
     );
     this.onDragLeave$ = fromEvent<DragEvent>(this.element, "dragleave").pipe(
-      tap(console.log),
       filter(e => {
         return !positionInRange((this.element as any).getBoundingClientRect(), {
           x: e.pageX,
           y: e.pageY
         });
+      }),
+      tap(() => {
+        this.isFirstEnter = true;
+        this.isEntered = false;
       })
     );
 
     this.buildStream();
-  };
+  }
 
   private _removeListenser = () => {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  };
+  }
 }

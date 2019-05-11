@@ -8,7 +8,7 @@
   (onDragDone)="onDragDoneHandle($event)"
   (onDragLeave)="onDragLeaveHandle($event)"
 >
-  <ng-template mpsDragFake></ng-template>
-
-  <!-- <div class="drop-insert-tip"></div> -->
+  <div *ngFor="let control of inputControls">
+    <mps-control [dragConfig]="control"></mps-control>
+  </div>
 </div>

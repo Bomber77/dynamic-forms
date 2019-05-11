@@ -1,3 +1,15 @@
 <div class="mps-drop-root">
-  <mps-dropable></mps-dropable>
+  <div
+    nz-row
+    *ngFor="let rowContainer of rowContainerGroup"
+    [nzGutter]="rowContainer.option.gap || 0"
+  >
+    <div
+      nz-col
+      [nzSpan]="colContainer.span"
+      *ngFor="let colContainer of rowContainer.cols"
+    >
+      <mps-dropable></mps-dropable>
+    </div>
+  </div>
 </div>

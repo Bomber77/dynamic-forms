@@ -8,11 +8,12 @@ import { NgZorroAntdModule } from "ng-zorro-antd";
 import { MpsDropDirective } from "./dragable/directives/mps-drop.directive";
 import { MpsDragDirective } from "./dragable/directives/mps-drag.directive";
 import { MpsDropRootComponent } from "./dragable/components/mps-drop-root.component";
-import { MpsDragFakeDirective } from "./dragable/directives/mps-drag-fake.directive";
 import { MpsDropableComponent } from "./dragable/components/mps-dropable/mps-dropable.component";
 import { MpsTextInputComponent } from "./components/mps-text-input/mps-text-input.component";
 import { MpsComponentsFactoryService } from "./services/mps-components-factory/mps-components-factory.service";
 import { MpsDrogDragService } from "./dragable/services/mps-drog-drag.service";
+import { MpsControlComponent } from "./dragable/components/mps-control/mps-control.component";
+import { ControlContentDirective } from "./dragable/directives/control-content";
 
 @NgModule({
   declarations: [
@@ -20,10 +21,11 @@ import { MpsDrogDragService } from "./dragable/services/mps-drog-drag.service";
     FormDesignerComponent,
     MpsDropDirective,
     MpsDragDirective,
-    MpsDragFakeDirective,
+    ControlContentDirective,
     MpsDropRootComponent,
     MpsDropableComponent,
-    MpsTextInputComponent
+    MpsTextInputComponent,
+    MpsControlComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +34,7 @@ import { MpsDrogDragService } from "./dragable/services/mps-drog-drag.service";
     NgZorroAntdModule
   ],
   providers: [MpsComponentsFactoryService, MpsDrogDragService],
-  entryComponents: [MpsTextInputComponent],
+  entryComponents: [MpsTextInputComponent, MpsControlComponent],
   exports: [
     ConfigurableFormComponent,
     FormDesignerComponent,

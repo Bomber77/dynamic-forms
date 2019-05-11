@@ -12,4 +12,5 @@ export enum DragItemType {
 export interface DragConfig {
   dragType: DragItemType;
   componentType: InputType;
+  isFake?: boolean;
 }

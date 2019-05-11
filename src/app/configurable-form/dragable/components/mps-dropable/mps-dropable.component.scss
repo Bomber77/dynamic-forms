@@ -2,8 +2,11 @@
   height: 400px;
   padding: 16px;
   text-align: center;
+  border: 1px solid #e8e8e8;
+  border-radius: 3px;
+  margin-bottom: 8px;
   &.drag-enter {
-    outline: 2px dashed #22222290;
+    outline: 2px dashed #1890ffff;
   }
 }
 

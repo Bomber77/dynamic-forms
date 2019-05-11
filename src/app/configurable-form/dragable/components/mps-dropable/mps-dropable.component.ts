@@ -17,9 +17,9 @@ import { DragConfig, DragItemType } from "../../directives/drag.config";
   styleUrls: ["./mps-dropable.component.scss"]
 })
 export class MpsDropableComponent implements AfterViewInit {
-  @ViewChild(MpsDragFakeDirective) mpsDragFake: MpsDragFakeDirective;
+  inputControls: DragConfig[];
 
-  viewContainerRef: ViewContainerRef;
+  curDragConfig: DragConfig;
 
   dragItemEnter = false;
 
@@ -29,10 +29,12 @@ export class MpsDropableComponent implements AfterViewInit {
   ) {}
 
   onDragEnterHandle = (e: DragConfig) => {
+    console.log("drag enter:", e);
+    this.curDragConfig = e;
     this.dragItemEnter = true;
     switch (e.dragType) {
       case DragItemType.CreateBy:
-        this.generateFakeComponent(e);
+        this.generateComponent(e, true);
         break;
       case DragItemType.Clone:
         break;
@@ -46,35 +48,32 @@ export class MpsDropableComponent implements AfterViewInit {
   onDragDoneHandle = e => {
     this.dragItemEnter = false;
     console.log("onDragDoneHandle:", e);
+    this.clearFake();
+    this.generateComponent(this.curDragConfig, false);
+    this.curDragConfig = undefined;
   }
 
   onDragLeaveHandle = e => {
     this.dragItemEnter = false;
-    this.clearViewContainerRef();
+    console.log("drag leave:", e);
+    this.clearFake();
+    this.curDragConfig = undefined;
   }
 
-  clearViewContainerRef = () => {
-    this.viewContainerRef.clear();
-  }
-
-  generateFakeComponent = (config: DragConfig) => {
-    if (config) {
-      // tslint:disable-next-line:max-line-length
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-        this.mpsComponentsFactoryService.getComponentByName(
-          config.componentType
-        ).component
-      );
-
-      this.clearViewContainerRef();
-
-      const componentRef = this.viewContainerRef.createComponent(
-        componentFactory
-      );
+  clearFake = () => {
+    const fakedIndex = this.inputControls.findIndex(control => control.isFake);
+    if (fakedIndex > -1) {
+      this.inputControls.splice(fakedIndex, 1);
     }
   }
 
-  ngAfterViewInit(): void {
-    this.viewContainerRef = this.mpsDragFake.viewContainerRef;
+  generateComponent = (config: DragConfig, isFake: boolean) => {
+    if (!Array.isArray(this.inputControls)) {
+      this.inputControls = [];
+    }
+    this.inputControls.push({ isFake, ...config });
+    console.log("this.inputControls:", this.inputControls);
   }
+
+  ngAfterViewInit(): void {}
 }
