@@ -61,17 +61,16 @@ export class MpsDropableComponent implements AfterViewInit {
   }
 
   clearFake = () => {
-    const fakedIndex = this.inputControls.findIndex(control => control.isFake);
-    if (fakedIndex > -1) {
-      this.inputControls.splice(fakedIndex, 1);
-    }
+    this.inputControls = [
+      ...this.inputControls.filter(control => !control.isFake)
+    ];
   }
 
   generateComponent = (config: DragConfig, isFake: boolean) => {
     if (!Array.isArray(this.inputControls)) {
       this.inputControls = [];
     }
-    this.inputControls.push({ isFake, ...config });
+    this.inputControls = [...this.inputControls, { isFake, ...config }];
     console.log("this.inputControls:", this.inputControls);
   }
 
