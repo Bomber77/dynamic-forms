@@ -16,7 +16,8 @@ export class MpsDropRootComponent implements OnInit {
       {
         id: 1,
         option: { gap: 8 },
-        cols: [{ id: 1, span: 12 }, { id: 2, span: 12 }]
+        // cols: [{ id: 1, span: 12 }, { id: 2, span: 12 }]
+        cols: [{ id: 1, span: 12 }]
       }
     ];
   }

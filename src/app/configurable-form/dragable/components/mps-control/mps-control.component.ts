@@ -29,7 +29,8 @@ export class MpsControlComponent implements OnInit, AfterViewInit {
 
   private isFake = false;
 
-  @ViewChild(ControlContentDirective) controlContent: ControlContentDirective;
+  @ViewChild(ControlContentDirective, { static: true })
+  controlContent: ControlContentDirective;
 
   viewContainerRef: ViewContainerRef;
   constructor(
@@ -60,5 +61,5 @@ export class MpsControlComponent implements OnInit, AfterViewInit {
   }
   clearViewContainerRef = () => {
     this.viewContainerRef.clear();
-  };
+  }
 }
